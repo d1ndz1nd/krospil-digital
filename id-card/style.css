@@ -1,0 +1,128 @@
+* {
+    font-family: monospace, Helvetica;
+    font-size: medium;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+input[type="file"] {
+    display: none;
+}
+.photo-upload #choose-photo-text, #clear-signature, #reset, #save-card, #delete-photo {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+.photo-upload #choose-photo-text:hover, #clear-signature:hover, #reset:hover, #save-card:hover, #delete-photo:hover {
+    background-color: #e0e0e0;
+}
+.photo-upload #choose-photo-text:active, #clear-signature:active, #reset:active, #save-card:active, #delete-photo:active {
+    background-color: #d7d7d7;
+}
+#sig-pad {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#choose-photo-text, #woman, #man, #man-label, #woman-label, #clear-signature, #save-card, #reset, #delete-photo {
+    cursor: pointer;
+}
+input, #sig-pad, .photo {
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+.photo {
+    width: 200px;
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+}
+.card {
+    width: auto;
+    height: auto;
+    border: 1px solid black;
+    padding: 15px;
+    align-items: center;
+}
+.display-card {
+    width: auto;
+    height: auto;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    padding-left: 25px;
+    padding-right: 25px;
+    position:fixed;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.page {
+    padding-top: 57px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+#preview, #please-write-form {
+    display: flex; 
+    justify-content: center;
+}
+.main-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+#p-signature {
+  border: 1px solid gray;
+  border-radius: 4px;
+  width: 240px;
+  height: 80px;
+}
+.page {
+  padding-top: 20px; 
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+form, .display-card {
+  width: 400px; 
+  max-width: 100%; 
+}
+#save-card, #delete-photo {
+  margin-top: 5px;
+}
+.card {
+  word-wrap: break-word; 
+  word-break: break-word; 
+  overflow-wrap: break-word;
+}
+.card div, .card label {
+  max-width: 100%;
+  white-space: normal;
+}
+.nickname, .choose-sex, .dob, .address, .birthplace, .nationality, .sf, .photo-upload, .signature, .control, .photo, .record, .date-of-issue, .date-of-expire, .authority {
+  margin-bottom: 15px;
+}

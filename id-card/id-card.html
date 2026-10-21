@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+<meta charset="UTF-8">
+<title>Створення картки Кроспільця</title>
+<link rel="icon" type="image/x-icon" href="favicon.png">
+<link rel="stylesheet" href="style.css"> 
+</head>
+
+<body>
+
+<header>
+  <div class="kp">
+    <h3>Кроспіль Цифровий</h3>
+  </div>
+  <div class="service-name">
+    <h3>Сервіс «Cтворення картки Кроспільця»</h3>
+  </div>
+</header>
+  
+<div class="page">
+  <div class="main-content">
+    <form>
+      <h3 id="please-write-form">Заповніть, будь ласка, цю форму:</h3>
+      <div class="nickname">
+        <label>Нік:<br></label>
+        <input type="text" id="nickname">
+      </div>
+      <div class="choose-sex">
+        <label>Стать:<br></label>
+        <div class="sex">
+          <input type="radio" id="woman" name="sex" value="Жіноча">
+          <label for="woman" id="woman-label">Жіноча</label><br>
+          <input type="radio" id="man" name="sex" value="Чоловіча">
+          <label for="man" id="man-label">Чоловіча</label>
+        </div>
+      </div>
+      <div class="dob">
+        <label>Дата народження:<br></label>
+        <input type="date" id="dob">
+      </div>
+      <div class="address">
+        <label>Адреса проживання (в Кроспілі):<br></label>
+        <input type="text" id="address">
+      </div>
+      <div class="sf">
+        <label>Особливі примітки:<br></label>
+        <input type="text" id="sf">
+      </div>
+      <div class="photo-upload">
+        <label>Фотографія:<br></label>
+        <label for="photo-upload" id="choose-photo-text">Обрати фото</label>
+        <input id="photo-upload" type="file">
+        <input type="button" id="delete-photo" value="Видалити фото">
+      </div>
+      <div class="signature">
+        <label>Підпис:<br></label>
+        <canvas id="sig-pad" width="240" height="80"></canvas><br>
+        <input type="button" id="clear-signature" value="Очистити підпис">
+      </div>
+      <div class="control">
+        <input type="reset" id="reset" value="Очистити форму">
+        <input type="button" id="save-card" value="Завантажити картку">
+      </div>
+    </form>
+
+    <div class="display-card">
+      <h3 id="preview">Передперегляд картки:</h3>
+      <div class="card" id="card">
+        <h3>Картка Кроспільця</h3>
+        <div class="record">Актовий запис: <span id="p-record"></span></div>
+        <div class="photo" id="p-photo"></div>
+        <div class="nickname">Нік: @<span id="p-name"></span></div>
+        <div class="choose-sex">Стать: <span id="p-sex"></span></div>
+        <div class="dob">Дата народження: <span id="p-dob"></span></div>
+        <div class="address">Місце проживання (в Кросполі): <span id="p-legal-address"></span></div>
+        <div class="sf">Особливі примітки: <span id="p-special-features"></span></div>
+        <label>Підпис:<br></label>
+        <div class="signature" id="p-signature"></div>
+        <div class="date-of-issue">Дата видачі: <span id="p-date-of-issue"></span></div>
+        <div class="date-of-expire">Дійсна до: <span id="p-date-of-expire"></span></div>
+        <div class="authority">Орган, що видав: Кроспільський ЦНАП</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+<script src="script.js" defer></script>
+
+</body>
+</html>
