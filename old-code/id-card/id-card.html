@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+<meta charset="UTF-8">
+<title>Створення картки Кроспільця</title>
+<style>
+* {
+    font-family: monospace, Helvetica;
+    font-size: medium;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+input[type="file"] {
+    display: none;
+}
+.photo-upload #choose-photo-text, #clear-signature, #reset, #save-card, #delete-photo {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+.photo-upload #choose-photo-text:hover, #clear-signature:hover, #reset:hover, #save-card:hover, #delete-photo:hover {
+    background-color: #e0e0e0;
+}
+.photo-upload #choose-photo-text:active, #clear-signature:active, #reset:active, #save-card:active, #delete-photo:active {
+    background-color: #d7d7d7;
+}
+#sig-pad {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#choose-photo-text, #woman, #man, #man-label, #woman-label, #clear-signature, #save-card, #reset, #delete-photo {
+    cursor: pointer;
+}
+input, #sig-pad, .photo {
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+.photo {
+    width: 200px;
+    height: 160px;
+    background-size: cover;
+    background-position: center;
+}
+.card {
+    width: auto;
+    height: auto;
+    border: 1px solid black;
+    padding: 15px;
+    align-items: center;
+}
+.display-card {
+    width: auto;
+    height: auto;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    padding-left: 25px;
+    padding-right: 25px;
+    position:fixed;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.page {
+    padding-top: 57px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+#preview, #please-write-form {
+    display: flex; 
+    justify-content: center;
+}
+.main-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+#p-signature {
+  border: 1px solid gray;
+  border-radius: 4px;
+  width: 240px;
+  height: 80px;
+}
+.page {
+  padding-top: 20px; 
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+form, .display-card {
+  width: 400px; 
+  max-width: 100%; 
+}
+#save-card, #delete-photo {
+  margin-top: 5px;
+}
+.card {
+  word-wrap: break-word; 
+  word-break: break-word; 
+  overflow-wrap: break-word;
+}
+.card div, .card label {
+  max-width: 100%;
+  white-space: normal;
+}
+.nickname, .choose-sex, .dob, .address, .birthplace, .nationality, .sf, .photo-upload, .signature, .control, .photo, .record, .date-of-issue, .date-of-expire, .authority {
+  margin-bottom: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="kp">
+    <h3>Кроспіль Цифровий</h3>
+  </div>
+  <div class="service-name">
+    <h3>Сервіс «Cтворення картки Кроспільця»</h3>
+  </div>
+</header>
+  
+<div class="page">
+  <div class="main-content">
+    <form>
+      <h3 id="please-write-form">Заповніть, будь ласка, цю форму:</h3>
+      <div class="nickname">
+        <label>Нік:<br></label>
+        <input type="text" id="nickname">
+      </div>
+      <div class="choose-sex">
+        <label>Стать:<br></label>
+        <div class="sex">
+          <input type="radio" id="woman" name="sex" value="Жіноча">
+          <label for="woman" id="woman-label">Жіноча</label><br>
+          <input type="radio" id="man" name="sex" value="Чоловіча">
+          <label for="man" id="man-label">Чоловіча</label>
+        </div>
+      </div>
+      <div class="dob">
+        <label>Дата народження:<br></label>
+        <input type="date" id="dob">
+      </div>
+      <div class="address">
+        <label>Адреса проживання (в Кроспілі):<br></label>
+        <input type="text" id="address">
+      </div>
+      <div class="sf">
+        <label>Особливі примітки:<br></label>
+        <input type="text" id="sf">
+      </div>
+      <div class="photo-upload">
+        <label>Фотографія:<br></label>
+        <label for="photo-upload" id="choose-photo-text">Обрати фото</label>
+        <input id="photo-upload" type="file">
+        <input type="button" id="delete-photo" value="Видалити фото">
+      </div>
+      <div class="signature">
+        <label>Підпис:<br></label>
+        <canvas id="sig-pad" width="240" height="80"></canvas><br>
+        <input type="button" id="clear-signature" value="Очистити підпис">
+      </div>
+      <div class="control">
+        <input type="reset" id="reset" value="Очистити форму">
+        <input type="button" id="save-card" value="Завантажити картку">
+      </div>
+    </form>
+
+    <div class="display-card">
+      <h3 id="preview">Передперегляд картки:</h3>
+      <div class="card" id="card">
+        <h3>Картка Кроспільця</h3>
+        <div class="record">Актовий запис: <span id="p-record"></span></div>
+        <div class="photo" id="p-photo"></div>
+        <div class="nickname">Нік: @<span id="p-name"></span></div>
+        <div class="choose-sex">Стать: <span id="p-sex"></span></div>
+        <div class="dob">Дата народження: <span id="p-dob"></span></div>
+        <div class="address">Місце проживання (в Кросполі): <span id="p-legal-address"></span></div>
+        <div class="sf">Особливі примітки: <span id="p-special-features"></span></div>
+        <label>Підпис:<br></label>
+        <div class="signature" id="p-signature"></div>
+        <div class="date-of-issue">Дата видачі: <span id="p-date-of-issue"></span></div>
+        <div class="date-of-expire">Дійсна до: <span id="p-date-of-expire"></span></div>
+        <div class="authority">Орган, що видав: Кроспільський ЦНАП</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+<script>
+  if (!navigator.onLine) {
+      alert("Відсутнє підключення до інтернету! Сервіс може не працювати.");
+  }
+
+  window.addEventListener('offline', () => {
+      alert("Інтернет зник! Будь ласка, перевірте з'єднання. Сервіс може не працювати.");
+  });
+
+  window.addEventListener('online', () => {
+      alert("Інтернет відновлено!");
+  });
+
+  const nicknameInput = document.getElementById('nickname');
+  const dobInput = document.getElementById('dob');
+  const addressInput = document.getElementById('address');
+  const sfInput = document.getElementById('sf');
+  const womanRadio = document.getElementById('woman');
+  const manRadio = document.getElementById('man');
+  const photoInput = document.getElementById('photo-upload');
+  const signatureCanvas = document.getElementById('sig-pad');
+  const saveButton = document.getElementById('save-card');
+  const signatureDiv = document.getElementById('p-signature');
+  const form = document.querySelector('form');
+  const header = document.querySelector('header');
+  const body = document.querySelector('body');
+
+  const pName = document.getElementById('p-name');
+  const pSex = document.getElementById('p-sex');
+  const pDob = document.getElementById('p-dob');
+  const pAddress = document.getElementById('p-legal-address');
+  const pSf = document.getElementById('p-special-features');
+
+  const deletePhotoButton = document.getElementById('delete-photo');
+  const clearSignatureButton = document.getElementById('clear-signature');
+  const resetButton = document.getElementById('reset');
+  const saveCardButton = document.getElementById('save-card');
+
+  const signaturePad = new SignaturePad(signatureCanvas);
+  
+  function updateButtonsState() {
+    const isFormFilled = nicknameInput.value.trim() !== '' ||
+                         dobInput.value.trim() !== '' ||
+                         addressInput.value.trim() !== '' ||
+                         sfInput.value.trim() !== '' ||
+                         womanRadio.checked ||
+                         manRadio.checked;
+    
+    const isPhotoLoaded = photoInput.files.length > 0;
+    const isSignatureDrawn = !signaturePad.isEmpty();
+    
+    const canClearOrDelete = isPhotoLoaded || isSignatureDrawn;
+    const canReset = isFormFilled || canClearOrDelete;
+    
+    deletePhotoButton.disabled = !isPhotoLoaded;
+    clearSignatureButton.disabled = !isSignatureDrawn;
+    resetButton.disabled = !canReset;
+    saveCardButton.disabled = !(isFormFilled && isPhotoLoaded && isSignatureDrawn);
+  }
+
+  function validateForm() {
+    const emptyFields = [];
+    if (nicknameInput.value.trim() === '') emptyFields.push(nicknameInput);
+    if (dobInput.value.trim() === '') emptyFields.push(dobInput);
+    if (addressInput.value.trim() === '') emptyFields.push(addressInput);
+    if (sfInput.value.trim() === '') emptyFields.push(sfInput);
+    const isSexSelected = womanRadio.checked || manRadio.checked;
+    if (!isSexSelected) emptyFields.push(womanRadio); 
+    if (photoInput.files.length === 0) emptyFields.push(photoInput);
+    if (signaturePad.isEmpty()) emptyFields.push(signatureCanvas);
+    return true;
+  }
+  
+  function updateSignature() {
+    if (!signaturePad.isEmpty()) {
+      const dataURL = signaturePad.toDataURL();
+      signatureDiv.innerHTML = `<img src="${dataURL}" style="width:100%; height:auto; object-fit:contain;">`;
+    }
+    updateButtonsState(); 
+  }
+
+  saveButton.addEventListener('click', () => {
+    if (validateForm()) {
+      html2canvas(document.getElementById('card')).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'krospilets_card.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+  });
+
+  document.getElementById('clear-signature').addEventListener('click', () => {
+    signaturePad.clear();
+    signatureDiv.innerHTML = '';
+    updateButtonsState();
+  });
+
+  document.getElementById('delete-photo').addEventListener('click', () => {
+    document.getElementById('p-photo').style.backgroundImage = 'none';
+    document.getElementById('photo-upload').value = '';
+    updateButtonsState();
+  });
+
+  signatureCanvas.addEventListener('mouseup', updateSignature);
+  signatureCanvas.addEventListener('touchend', updateSignature);
+  signatureCanvas.addEventListener('mousemove', updateSignature);
+  signatureCanvas.addEventListener('touchmove', updateSignature);
+  
+  nicknameInput.addEventListener('input', (e) => {
+    document.getElementById('p-name').textContent = e.target.value;
+    updateButtonsState();
+  });
+  dobInput.addEventListener('change', (e) => {
+    const date = new Date(e.target.value);
+    const formattedDate = date.toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    document.getElementById('p-dob').textContent = formattedDate;
+    updateButtonsState();
+  });
+  addressInput.addEventListener('input', (e) => {
+    document.getElementById('p-legal-address').textContent = e.target.value;
+    updateButtonsState();
+  });
+  sfInput.addEventListener('input', (e) => {
+    document.getElementById('p-special-features').textContent = e.target.value;
+    updateButtonsState();
+  });
+
+  womanRadio.addEventListener('change', () => {
+    document.getElementById('p-sex').textContent = 'Жіноча';
+    updateButtonsState();
+  });
+  manRadio.addEventListener('change', () => {
+    document.getElementById('p-sex').textContent = 'Чоловіча';
+    updateButtonsState();
+  });
+
+  photoInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        document.getElementById('p-photo').style.backgroundImage = `url(${reader.result})`;
+      };
+      reader.readAsDataURL(file);
+    }
+    updateButtonsState();
+  });
+  
+  resetButton.addEventListener('click', () => {
+      pName.textContent = '';
+      pSex.textContent = '';
+      pDob.textContent = '';
+      pAddress.textContent = '';
+      pSf.textContent = '';
+      signaturePad.clear();
+      signatureDiv.innerHTML = '';
+      document.getElementById('p-photo').style.backgroundImage = 'none';
+      document.getElementById('photo-upload').value = '';
+    
+      setTimeout(updateButtonsState, 0); 
+  });
+
+  document.getElementById('p-date-of-issue').textContent = new Date().toLocaleDateString('uk-UA');
+  let expireDate = new Date();
+  expireDate.setFullYear(expireDate.getFullYear() + 10);
+  document.getElementById('p-date-of-expire').textContent = expireDate.toLocaleDateString('uk-UA');
+  document.getElementById('p-record').textContent = Math.floor(Math.random() * 9999999);
+
+  function updateBodyPadding() {
+    const headerHeight = header.offsetHeight;
+    body.style.paddingTop = `${headerHeight + 20}px`;
+  }
+
+  window.addEventListener('load', () => {
+    updateBodyPadding();
+    updateButtonsState();
+  });
+  window.addEventListener('resize', updateBodyPadding);
+</script>
+
+</body>
+</html>
